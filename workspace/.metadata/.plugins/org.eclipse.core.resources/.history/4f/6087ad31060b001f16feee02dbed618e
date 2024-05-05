@@ -1,0 +1,55 @@
+function add() {
+	if (frm.regist_month.value.length == 0) { //단 한 글자도 입력되지 않았다는 뜻
+		alert("수강월이 입력되지 않았습니다.");
+		frm.regist_month.focus();
+		return false;
+	}
+
+	else if (frm.c_name.value==0) {
+		alert("회원명이 선택되지 않았습니다.");
+		frm.c_name.focus();
+		return false;
+	}
+
+	else if (frm.class_area[0].checked == false &&
+		frm.class_area[1].checked == false &&
+		frm.class_area[2].checked == false &&
+		frm.class_area[3].checked == false &&
+		frm.class_area[4].checked == false &&
+		frm.class_area[5].checked == false) {
+		alert("강의장소가 선택 되지 않았습니다.");
+		frm.class_area.focus();
+		return false;
+	}
+	
+	else if (frm.class_name.value==0){
+		alert("강의명이 선택되지 않았습니다.");
+		frm.class_name.focus();
+		return false;
+	}
+	
+	else
+		alert("수강신청이 완료되었습니다.");
+		document.frm.submit(); //db로 데이터 보내기 
+		return true;
+}
+
+function res(){
+	alert("정보를 지우고 처음부터 다시 입력합니다.");
+	document.frm.reset();
+}
+
+function getvalue(c_no){ //select에서 선택된 value값을 c_no로 가져옴
+	document.getElementById("c_no").value = c_no; //출력하는 명령어
+}
+
+function getvalue2(tuition){
+	document.getElementById("tuition").value = tuition;
+}
+
+
+
+
+
+
+

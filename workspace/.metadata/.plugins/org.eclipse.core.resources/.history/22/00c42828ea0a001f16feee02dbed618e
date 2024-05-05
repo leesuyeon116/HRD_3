@@ -1,0 +1,62 @@
+<%@ include file="db.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>mlist</title>
+</head>
+<body>
+<jsp:include page="header.jsp"></jsp:include>
+<section style="position: fixed; top: 70px; left: 0px; width: 100%; height: 100%; background-color: gray">
+<h2 style="text-align: center">과정평가형 자격 CBQ</h2>
+	<form style="display: flex; align-items: center; justify-content: center; text-align: center">
+		<table border="1">
+			<tr>
+				<td style="width: 130px">수강월</td>
+				<td style="width: 130px">회원번호</td>
+				<td style="width: 130px">회원명</td>
+				<td style="width: 130px">강의명</td>
+				<td style="width: 130px">강의장소</td>
+				<td style="width: 130px">수강료</td>
+				<td style="width: 130px">등급</td>		
+			</tr>
+			<% 
+			request.setCharacterEncoding("UTF-8");
+			
+			try{
+				String sql = "select regist_month, cl.c_no, c_name, class_name, class_area, tuition, grade " +
+							 "from tbl_teacher_202201 te, tbl_member_202201 me, tbl_class_202201 cl " +
+							 "where  te.teacher_code = cl.teacher_code and me.c_no = cl.c_no";
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery();
+				 while(rs.next()){
+					 String regist_month = rs.getString(1);
+					 String month = regist_month.substring(0,4) + "년" + regist_month.substring(4,6) + "월" + regist_month.substring(6,8) + "일";
+					 
+					 %>
+					 <tr>
+					 	<td><%=month %></td>
+					 	<td><%=rs.getString(2) %></td>
+					 	<td><%=rs.getString(3) %></td>
+					 	<td><%=rs.getString(4) %></td>
+					 	<td><%=rs.getString(5) %></td>
+					 	<td><%=rs.getString(6) %></td>
+					 	<td><%=rs.getString(7) %></td>
+					 </tr>
+					 <%
+				 }
+			}
+			
+			catch(Exception e){
+				e.printStackTrace();
+			}
+			%>
+
+		</table>
+	</form>
+</section>
+<jsp:include page="footer.jsp"></jsp:include>
+</body>
+</html>
